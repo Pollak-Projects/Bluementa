@@ -27,15 +27,14 @@ foreach( $fields as $field){
 }
 
 // Checking if the user exists
-$sql = "SELECT count(*) FROM users WHERE user_name = ? AND user_email = ?";
+$sql = "SELECT * FROM users WHERE user_name = ? AND user_email = ?";
 $stmt = $mysqli->prepare($sql);
 
 $stmt->bind_param("ss", $_POST['username'],  $_POST['email']);
 $stmt->execute();
+$stmt->store_result();
 
-$lines = $stmt->affected_rows;
-
-if($lines > 0){
+if($stmt->num_rows() > 0){
     echo 'User as alias already exists!';
     return http_response_code(409);
 }
@@ -70,13 +69,10 @@ else{
     $default
     );
     $stmt->execute();
-
+    $stmt->store_result();
     $lines = $stmt->num_rows;
 
-
-    echo $lines;
-
-    if( mysqli_affected_rows($mysqli) <= 0){
+    if( $lines <= 0){
         $stmt->close();
         $mysqli->next_result();
         echo 'there was some issue while registering!';

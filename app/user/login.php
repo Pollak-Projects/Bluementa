@@ -21,13 +21,14 @@ foreach($fields as $field){
 }
 
 // Checking if the user exists
-$sql = "SELECT count(*) FROM `users` WHERE `user_name` = ? AND `user_pass` = ?";
+$sql = "SELECT * FROM `users` WHERE `user_name` = ? AND `user_pass` = ?";
 $stmt = $mysqli->prepare($sql);
-
 $stmt->bind_param("ss", $_POST['username'], $_POST['password']);
 $stmt->execute();
+$stmt->store_result();
 
-if(mysqli_affected_rows($mysqli) < 1){
+
+if( $stmt->num_rows < 1){
     echo 'No user found!';
     return http_response_code(401);
 }
