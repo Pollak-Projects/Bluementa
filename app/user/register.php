@@ -18,7 +18,8 @@ $fields = [
     'firstname',
     'lastname'
 ];
-foreach($fields as $field){
+
+foreach( $fields as $field){
     if(!$_POST[$field]){
         echo 'missing field: ' . $field;
         return http_response_code(400);
@@ -33,7 +34,6 @@ $stmt->bind_param("ss", $_POST['username'],  $_POST['email']);
 $stmt->execute();
 
 $lines = $stmt->affected_rows;
-echo $lines;
 
 if($lines > 0){
     echo 'User as alias already exists!';
@@ -55,8 +55,9 @@ else{
     ) VALUES (?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($sql);
     
-    require("./assets/uuid.php");
+    require("./assets/gen_uuid.php");
     $id = gen_uuid();
+
     $default = "default";
     echo $id;
     $stmt->bind_param("sssssss", 

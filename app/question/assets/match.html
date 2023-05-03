@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .matchcase  {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="matchcase" >
+        <div class="right" id="matchcase_1_r">
+            
+        </div>
+
+        <div class="left" id="matchcase_1_l" >
+
+        </div>
+
+    </div>
+    <script>
+    let question = {
+        "question_id": 3,
+        "registration_id": 1,
+        "quiz_id": 1,
+        "question_question": "Kosd ossze az osszetartozo szavakat",
+        "question_answers": [
+        "kek",
+        "piros",
+        "eger",
+        "billenyuzet"
+        ],
+        "question_correct_answers": [
+        [
+            "kek",
+            "piros"
+        ],
+        [
+            "eger",
+            "billenyuzet"
+        ]
+        ],
+
+        "question_markable_answers": "0",
+        "question_description": "Valaszd ki a helyes megoldasokat",
+        "question_type": 4
+    }
+        let left = false;
+        for(let [index,answer] of question.question_answers.entries()){
+            let card = document.createElement("div");
+            card.className = "dragcard" 
+            card.innerText = answer;
+
+            if(left){
+                document.getElementById("matchcase_1_l").appendChild(card)
+                left = false
+            }else{
+                document.getElementById("matchcase_1_l").appendChild(card)
+                left = true
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8mb4_hungarian_ci */;
 
 --
 -- Database: `fosmenta`
@@ -36,7 +36,7 @@ CREATE TABLE `users` (
   `user_first_name` text NOT NULL,
   `user_last_name` text NOT NULL,
   `user_permission_level` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4_hungarian_ci COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables
