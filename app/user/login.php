@@ -10,7 +10,7 @@ require_once('connect.php');
 
 // Checking if the inputs are filled
 $fields = [
-    'username',
+    'user_name',
     'password',
 ];
 foreach($fields as $field){
@@ -24,7 +24,7 @@ foreach($fields as $field){
 $sql = "SELECT count(*) FROM `users` WHERE `user_name` = ? AND `user_pass` = ?";
 $stmt = $mysqli->prepare($sql);
 
-$stmt->bind_param("ss", $_POST['username'], $_POST['password']);
+$stmt->bind_param("ss", $_POST['user_name'], $_POST['password']);
 $stmt->execute();
 
 if(mysqli_affected_rows($mysqli) < 1){
