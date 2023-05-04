@@ -1,13 +1,11 @@
 <?php
 require_once("connect.php");
 
-$quizid = $_POST['quizek'];
+$quizid = $_POST['quizid'];
 
-$sql = "SELECT `csapatok_quizei`.`quiz_id`, `quiz`.`quiz_name`\n"
+$sql = "SELECT `quiz`.`quiz_name`\n"
 
-    . "FROM `quiz`\n"
-
-    . "    INNER JOIN `csapatok_quizei` ON `csapatok_quizei`.`quiz_id` = `quiz`.`quiz_id` WHERE `csapatok_quizei`.`quiz_id` = ?;";
+. "FROM `quiz` WHERE `quiz`.`quiz_id` = ?";
 
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $quizid);
@@ -23,5 +21,4 @@ while ($row = $result->fetch_assoc()) {
 }
 
 echo json_encode($data);
-header("Location: http://localhost/HG/Blue%20Menta(No%20COPY)/quizben.html");
 ?>
