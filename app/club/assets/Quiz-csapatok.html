@@ -11,12 +11,12 @@
 </head>
 <body>
     
-<form action="csoport_quizek.php" method="POST">
+<form action="../csoport_quizek.php" method="POST">
 
     <h3>Csapat quizei</h3>
     <p>Válassa ki a csapatot melynek akarja látni a quizeit</p>
     <select name="csoport" id="csoport">
-        <option value="-1">Válaszon egy csapatot!</option>
+        <option value="-1" disabled selected>Válaszon egy csapatot!</option>
     </select>
     <br>
     <br>
@@ -32,7 +32,7 @@
         $(document).ready(function () {		
             $.ajax( 
             {
-        url: "csoport_elerheto-quiz.php",
+        url: "../csoport_elerheto-quiz.php",
         type: 'POST',  // http method
         data: { tableName: 'csapat' },  // data to submit
                 dataType: 'json', // type of response data

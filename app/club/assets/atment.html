@@ -22,7 +22,7 @@
         $(document).ready(function () {		
             $.ajax( 
             {
-        url: "quiznev.php",
+        url: "../quiznev.php",
         type: 'POST',  // http method
         data: { quizid: new URLSearchParams(document.location.search).get("quizid") },  // data to submit
                 dataType: 'json', // type of response data

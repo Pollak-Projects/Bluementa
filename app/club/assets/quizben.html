@@ -14,7 +14,7 @@
         $(document).ready(()=> {		
             $.ajax( 
             {
-            url: "quiznev.php",
+            url: "../quiznev.php",
             type: 'POST',  // http method
             
         data: { csoportid: new URLSearchParams(document.location.search).get("clubid") },  // data to submit

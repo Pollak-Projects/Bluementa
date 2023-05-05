@@ -15,7 +15,7 @@
     <!--Csatlakozás id alapján-->
     
 
-    <form action="csapat_csatlakoz.php" method="post">
+    <form action="../csapat_csatlakoz.php" method="post">
 
     <select name="csoport-csat" id="csoport-csat" style="margin-left:20px ;">
         <option value="-1">Válasszon csapatot!</option>
@@ -29,7 +29,7 @@
 
     <h3>Kilépés csapatból</h3>
     <!--Ha be van jelentkezve id alapján kilépés-->
-    <form action="csoport_kilepes.php" method="post">
+    <form action="../csoport_kilepes.php" method="post">
     <select name="csoport-kilep" id="csoport-kilep" style="margin-left:20px ;">
         <option value="-1">Válasszon csapatot!</option>
     </select>
@@ -41,7 +41,7 @@
         $(document).ready(function () {		
             $.ajax( 
             {
-        url: "backend_csapatnevek.php",
+        url: "../backend_csapatnevek.php",
         type: 'POST',  // http method
         data: { tableName: 'csapat' },  // data to submit
                 dataType: 'json', // type of response data
@@ -69,7 +69,7 @@
         $(document).ready(function () {		
             $.ajax( 
             {
-        url: "csoport_kilepheto.php",
+        url: "../csoport_kilepheto.php",
         type: 'POST',  // http method
         data: { tableName: 'tagok' },  // data to submit
                 dataType: 'json', // type of response data
