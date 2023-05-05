@@ -10,7 +10,7 @@
     <title>Quizek</title>
 </head>
 <body>
-    <form method="post" action="quiznev.php">
+    <form method="post" action="/blue/quizneve.php">
     <div class="row">
     <div class="col-sm-2 mb-3 mb-sm-0">
         <div class="card">
@@ -28,7 +28,7 @@
         $(document).ready(()=> {		
             $.ajax( 
             {
-            url: "quizek_lekerdezes.php",
+            url: "/blue/quizek_lekerdezes.php",
             type: 'POST',  // http method
             
         data: { csoportid: new URLSearchParams(document.location.search).get("clubid") },  // data to submit

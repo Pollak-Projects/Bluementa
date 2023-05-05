@@ -17,7 +17,6 @@ $mysqli->close();
 if($sorok == 0) {
     echo "Ennek a csapatnak nincsenek quizei!";
 } else {
-    sleep(5);
-    header("Location: http://localhost/HG/Blue%20Menta(No%20COPY)/quizek-kiir.php?clubid=".$csoportid);
+    header("Location: http://localhost/blue/quizek-kiir.php?clubid=".$csoportid);
 }
 ?>
