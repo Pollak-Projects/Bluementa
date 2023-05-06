@@ -1,2 +1,3 @@
 <?php
-echo 1;
+$arr = array("user_id" => 1);
+echo json_encode($arr);
