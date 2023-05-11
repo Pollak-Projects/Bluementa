@@ -1,5 +1,5 @@
 <?php
-require_once("connect.php");
+require_once("../global/database_connection/global_connect.php");
 
 $registrationId = intval($_POST['registrationId']);
 $quizId = intval($_POST['quizId']);
