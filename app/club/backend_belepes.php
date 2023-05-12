@@ -10,12 +10,12 @@ $permissionlvl = 2;
 
 if ($permissionlvl == 1)
 {
-    header("Location: http://localhost/HG/Blue%20Menta(No%20COPY)/tanuloi-felulet.html");
+    header("Location: http://localhost/blue/assets/tanuloi-felulet.html");
     exit();
 }
 elseif ($permissionlvl == 2)
 {
-    header("Location: http://localhost/HG/Blue%20Menta(No%20COPY)/csoport-kezeles.html");
+    header("Location: http://localhost/blue/assets/csoport-kezeles.html");
     exit();
 }
 

@@ -15,7 +15,7 @@
 </head>
 <body>
     <div>
-        <form method='POST' action="feldolgoz.php">
+        <form method='POST' action="../feldolgoz.php">
             <h3>Csapat készítés</h3>
                 <form method='POST' action="feldolgoz.php">
                     Csapat Név <input type="text" name="csoport" id="csoport">
@@ -28,7 +28,7 @@
 <br>
 <br>
     <h3>Csapat törlés</h3>
-    <form method='POST' action="torles.php">
+    <form method='POST' action="../torles.php">
     <select name="csoportdel" id="csoporttorol" style="margin-left:20px ;">
         <option value="-1">Válasszon csapatot!</option>
     </select>
@@ -36,24 +36,25 @@
     <input type="submit" name="submit" value="Törlés" style="margin-left:150px ;">
     </form>
 
-    <form action="csapat_csatlakoz.php" method="post">
     <h3>Csatlakozás csapathoz</h3>
     <!--Csatlakozás id alapján-->
     
 
+    <form action="../csapat_csatlakoz.php" method="post">
 
     <select name="csoport-csat" id="csoport-csat" style="margin-left:20px ;">
         <option value="-1">Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" value="Csatlakozás" style="margin-left:150px ;">
+
     </form>
 
 
 
     <h3>Kilépés csapatból</h3>
     <!--Ha be van jelentkezve id alapján kilépés-->
-
+    <form action="../csoport_kilepes.php" method="post">
     <select name="csoport-kilep" id="csoport-kilep" style="margin-left:20px ;">
         <option value="-1">Válasszon csapatot!</option>
     </select>
@@ -65,7 +66,7 @@
         $(document).ready(function () {		
             $.ajax( 
             {
-        url: "backend_csapatnevek.php",
+        url: "../backend_csapatnevek.php",
         type: 'POST',  // http method
         data: { tableName: 'csapat' },  // data to submit
                 dataType: 'json', // type of response data
@@ -88,8 +89,32 @@
     
     </script>
 
+
+    <script>
+        $(document).ready(function () {		
+            $.ajax( 
+            {
+        url: "../csoport_kilepheto.php",
+        type: 'POST',  // http method
+        data: { tableName: 'tagok' },  // data to submit
+                dataType: 'json', // type of response data
+                //timeout: 500,     // timeout milliseconds
+                success: function (data,status,xhr) {   // success callback function
+
+          for(let i = 0; i< data.length;i++){
+           // <option value="1">One</option>
+                    $('#csoport-kilep').append('<option value="'+data[i].id + '">' + data[i].Nev + '</option>');
+                    //$('#dolgozok').append('<option value="' +data[i].id + '">' + data[i].Name + '</option>');
+          }
+                },
+                error: function (jqXhr, textStatus, errorMessage) { // error callback 
+                    $('#csoport-kilep').append('Error: ' + errorMessage);
+                    console.log(textStatus)
+                }
+            });
+    });
+    
+    </script>
+
 </body>
-
-
-
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="quiznev"></div>
+
+    <script>
+        $(document).ready(()=> {		
+            $.ajax( 
+            {
+            url: "../quiznev.php",
+            type: 'POST',  // http method
+            
+        data: { csoportid: new URLSearchParams(document.location.search).get("clubid") },  // data to submit
+                dataType: 'json', // type of response data
+                //timeout: 500,     // timeout milliseconds
+                success: function (data,status,xhr) {   // success callback function
+                    console.log(data)
+          for(let i = 0; i< data.length;i++){
+           // <option value="1">One</option>
+           /* 
+           <div class="col-sm-2 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+            </div>
+            <input type="submit" name="button1"
+                class="button" value="A quiz megnyitása" />
+          </div>
+          */
+                $('#quiznev').append('<h5>' + data[i].Name + '</h5>');
+
+                //$('#dolgozok').append('<option value="' +data[i].id + '">' + data[i].Name + '</option>');
+          }
+                },
+            });
+    });
+
+
+    </script>
+</body>
+</html>
