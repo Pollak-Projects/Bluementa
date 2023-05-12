@@ -1,0 +1,23 @@
+.asd {
+    font-weight: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 250px;
+    text-align: center;
+    top: 10%;
+    left: 32%;
+    position: fixed;
+  }
+.asd2{
+    text-align: center;   
+    position: fixed;
+    top: 40%;
+    left: 48%;
+
+ }
+ h1 {
+    text-align: center;
+    position: fixed;
+    top: 30%;
+    left: 42%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+ }
