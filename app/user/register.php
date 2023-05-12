@@ -81,6 +81,9 @@ else{
         $stmt->close();
         $mysqli->next_result();
 
+        session_start();
+        $_SESSION['id'] =  $id;
+        
         echo 'Succesful register!';
         return http_response_code(200);
     }

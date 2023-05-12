@@ -22,14 +22,19 @@ $sql = "SELECT * FROM `users` WHERE `user_name` = ? AND `user_pass` = ?";
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("ss", $_POST['username'], $_POST['password']);
 $stmt->execute();
-$stmt->store_result();
+
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
 
 
-if( $stmt->num_rows < 1){
+if(  !isset($row['user_id']) ){
     echo 'No user found!';
     return http_response_code(401);
 }
 else{
+    session_start();
+    $_SESSION['id'] = $row['userid'];
+
     return http_response_code(200);
 }
 
