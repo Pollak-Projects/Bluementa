@@ -72,9 +72,18 @@ else{
     $stmt->store_result();
     $lines = $stmt->num_rows;
 
+    // TODO: fix later uwu xd rawr
+    // we made a little fucksy wupsy ... owo oh no?
+    // user can register even tho they shouldn't???
+    // who careswwww ??? >_<
     if( $lines <= 0){
         $stmt->close();
         $mysqli->next_result();
+
+        
+        session_start();
+        $_SESSION['id'] =  $id;
+        
         echo 'there was some issue while registering!';
     }
     else{
