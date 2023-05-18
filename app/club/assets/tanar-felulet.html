@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="csapatok.css">
     <!-- This Code is made by Imii and Gabor -->
     <script type="text/javascript" 
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -14,17 +14,6 @@
 
 </head>
 <body>
-    <nav>
-        <div>
-          <a href="#">Asztal</a>
-          <a href="#">Feladattár</a>
-          <a href="#">Csoportok</a>
-          <a href="#">Katalógus</a>
-          <a href="#">Direktcím</a>
-          <a href="#">Árak</a>
-        </div>
-      </nav>
-      <br><br><br><br>
     <div>
         <form method='POST' action="../feldolgoz.php">
             <h3>Csapat készítés</h3>
@@ -39,9 +28,9 @@
 <br>
 <br>
     <h3>Csapat törlés</h3>
-    <form method='POST' action="../torles.php">
+    <form method='POST' action="../torles.php" id="torles">
     <select name="csoportdel" id="csoporttorol" style="margin-left:20px ;">
-        <option value="-1">Válasszon csapatot!</option>
+        <option value="-1" disabled selected>Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" name="submit" value="Törlés" style="margin-left:150px ;">
@@ -54,7 +43,7 @@
     <form action="../csapat_csatlakoz.php" method="post">
 
     <select name="csoport-csat" id="csoport-csat" style="margin-left:20px ;">
-        <option value="-1">Válasszon csapatot!</option>
+        <option value="-1" disabled selected>Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" value="Csatlakozás" style="margin-left:150px ;">
@@ -67,7 +56,7 @@
     <!--Ha be van jelentkezve id alapján kilépés-->
     <form action="../csoport_kilepes.php" method="post">
     <select name="csoport-kilep" id="csoport-kilep" style="margin-left:20px ;">
-        <option value="-1">Válasszon csapatot!</option>
+        <option value="-1" disabled selected>Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" value="Kilépés" style="margin-left:150px ;">
@@ -79,7 +68,7 @@
             {
         url: "../backend_csapatnevek.php",
         type: 'POST',  // http method
-        data: { tableName: 'csapat' },  // data to submit
+        data: { tableName: 'clubs' },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function
@@ -107,7 +96,7 @@
             {
         url: "../csoport_kilepheto.php",
         type: 'POST',  // http method
-        data: { tableName: 'tagok' },  // data to submit
+        data: { tableName: 'clubs_users_switch' },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function
