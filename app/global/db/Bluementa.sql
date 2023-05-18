@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Máj 12. 12:34
--- Kiszolgáló verziója: 10.4.24-MariaDB
--- PHP verzió: 8.1.6
+-- Létrehozás ideje: 2023. Máj 15. 11:59
+-- Kiszolgáló verziója: 10.1.31-MariaDB
+-- PHP verzió: 5.6.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -77,27 +78,6 @@ INSERT INTO `questions` (`question_id`, `registration_id`, `quiz_id`, `question_
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `questions_quizzes_switch`
---
-
-CREATE TABLE `questions_quizzes_switch` (
-  `questions_quiz_id` int(11) NOT NULL,
-  `quizzes_quiz_id` int(11) NOT NULL,
-  `questions_quizzes_switch_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `questions_quizzes_switch`
---
-
-INSERT INTO `questions_quizzes_switch` (`questions_quiz_id`, `quizzes_quiz_id`, `questions_quizzes_switch_id`) VALUES
-(3, 4, 1),
-(2, 4, 2),
-(2, 5, 3);
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `quizzes`
 --
 
@@ -115,12 +95,27 @@ CREATE TABLE `quizzes` (
 --
 
 INSERT INTO `quizzes` (`quiz_id`, `registration_id`, `group_id`, `quiz_name`, `quiz_description`, `number_of_questions`) VALUES
-(1, 43, 34, '23123muk4fg', 'as', 312),
-(2, 3, 3, 'ysdf', 'sdfa', 3),
-(3, 12345, 1233, 'sdfasdfsd', 'fasdhgt', 54),
-(4, 3, 1234, 'fsdaf', '4sdf', 3123),
-(5, 1231231, 23123, 'sdadfasdf', 'asdfasdf', 123),
-(6, 234, 1223, 'fssfdafdsdaf', 'sadf', 23);
+(3, 3, 3, 'ysdf', 'sdfa', 3),
+(121, 43, 34, '23123muk4fg', 'as', 312),
+(122, 12345, 1233, 'sdfasdfsd', 'fasdhgt', 54),
+(123, 3, 1234, 'fsdaf', '4sdf', 3123),
+(123123, 1231231, 23123, 'sdadfasdf', 'asdfasdf', 123),
+(123234, 234, 1223, 'fssfdafdsdaf', 'sadf', 23);
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `solved_quiz`
+--
+
+CREATE TABLE `solved_quiz` (
+  `solved_id` int(250) NOT NULL,
+  `user_id` int(250) NOT NULL,
+  `quiz_id` int(250) NOT NULL,
+  `quiz_max_point` int(250) NOT NULL,
+  `quiz_obtained_point` int(250) NOT NULL,
+  `quiz_percentage` int(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 -- --------------------------------------------------------
 
@@ -154,22 +149,21 @@ ALTER TABLE `clubs`
 -- A tábla indexei `questions`
 --
 ALTER TABLE `questions`
-  ADD PRIMARY KEY (`question_id`),
-  ADD KEY `quiz_id` (`quiz_id`);
-
---
--- A tábla indexei `questions_quizzes_switch`
---
-ALTER TABLE `questions_quizzes_switch`
-  ADD PRIMARY KEY (`questions_quizzes_switch_id`),
-  ADD KEY `questions_quiz_id` (`questions_quiz_id`),
-  ADD KEY `quizzes_quiz_id` (`quizzes_quiz_id`) USING BTREE;
+  ADD PRIMARY KEY (`question_id`);
 
 --
 -- A tábla indexei `quizzes`
 --
 ALTER TABLE `quizzes`
   ADD PRIMARY KEY (`quiz_id`);
+
+--
+-- A tábla indexei `solved_quiz`
+--
+ALTER TABLE `solved_quiz`
+  ADD PRIMARY KEY (`solved_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `quiz_id` (`quiz_id`);
 
 --
 -- A tábla indexei `users`
@@ -194,16 +188,16 @@ ALTER TABLE `questions`
   MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT a táblához `questions_quizzes_switch`
---
-ALTER TABLE `questions_quizzes_switch`
-  MODIFY `questions_quizzes_switch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT a táblához `quizzes`
 --
 ALTER TABLE `quizzes`
   MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123235;
+
+--
+-- AUTO_INCREMENT a táblához `solved_quiz`
+--
+ALTER TABLE `solved_quiz`
+  MODIFY `solved_id` int(250) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `users`
@@ -216,11 +210,11 @@ ALTER TABLE `users`
 --
 
 --
--- Megkötések a táblához `questions_quizzes_switch`
+-- Megkötések a táblához `solved_quiz`
 --
-ALTER TABLE `questions_quizzes_switch`
-  ADD CONSTRAINT `questions_quizzes_switch_ibfk_1` FOREIGN KEY (`quizzes_quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `questions_quizzes_switch_ibfk_2` FOREIGN KEY (`questions_quiz_id`) REFERENCES `questions` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `solved_quiz`
+  ADD CONSTRAINT `solved_quiz_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solved_quiz_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

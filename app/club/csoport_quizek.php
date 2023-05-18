@@ -1,9 +1,9 @@
 <?php
-require_once("connect.php");
+require_once("global_connect.php");
 
 $csoportid = $_POST['csoport'];
-$sql = "SELECT `csapatok_quizei`.`csapat_id`\n"
-    . "FROM `csapatok_quizei` WHERE `csapatok_quizei`.`csapat_id` = ?";
+$sql = "SELECT `quizzez_clubs_switch`.`club_id`\n"
+    . "FROM `quizzez_clubs_switch` WHERE `quizzez_clubs_switch`.`club_id` = ?";
 
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $csoportid);

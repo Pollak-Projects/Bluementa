@@ -1,5 +1,5 @@
 <?php
-require_once("connect.php");
+require_once("global_connect.php");
 //$table = $_POST['tableName'];
 
 /*$sql = "SELECT `tagok`.`csop_id`\n"
@@ -12,19 +12,19 @@ require_once("connect.php");
    $stmt->bind_param("i",$id);
 */
 
-$sql = "SELECT `tagok`.`csop_id`, `csapat`.`group_name`\n"
+$sql = "SELECT `clubs_users_switch`.`club_id`, `club`.`club_name`\n"
 
-    . "FROM `csapat`\n"
+    . "FROM `club`\n"
 
-    . "    LEFT JOIN `tagok` ON `tagok`.`csop_id` = `csapat`.`group_id` WHERE `tagok`.`user_id` = 1;";
+    . "    LEFT JOIN `clubs_users_switch` ON `clubs_users_switch`.`club_id` = `club`.`club_id` WHERE `clubs_users_switch`.`user_id` = 1;";
 
 $result = $mysqli->query($sql);
 
 $data = [];
 while ($row = $result->fetch_assoc()) {
     $sor = [];
-    $sor['id'] = $row['csop_id'];
-    $sor['Nev'] = $row['group_name'];
+    $sor['id'] = $row['club_id'];
+    $sor['Nev'] = $row['club_name'];
     $data[] = $sor;
 }
 echo json_encode($data);

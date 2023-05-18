@@ -1,7 +1,7 @@
 <?php
 // This Code is made by Gabor 
 
-require_once("connect.php");
+require_once("global_connect.php");
 // Adatok lekérése
 $id = $_POST['id'];
 $nev =  $_POST['nev'];
@@ -18,5 +18,5 @@ elseif ($permissionlvl == 2)
     header("Location: http://localhost/blue/assets/csoport-kezeles.html");
     exit();
 }
-
+   
 ?>
