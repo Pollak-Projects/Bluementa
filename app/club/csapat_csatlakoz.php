@@ -13,7 +13,6 @@ if(!validate_session()) return http_response_code(401);
         $id = get_user_session_id();
         $sql = "INSERT INTO `clubs_users_switch` (`club_id`, `user_id`) VALUES (?, ?);";
 
-
         $stmt = $mysqli->prepare($sql);   
 
         $stmt->bind_param("is", $selected,$id);
