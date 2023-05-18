@@ -13,7 +13,7 @@ foreach( $fields as $field){
     }
 }
 
-function getName() {
+function generateToken() {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randomString = '';
  
@@ -25,7 +25,7 @@ function getName() {
     return $randomString;
 }
 
-$token = getName();
+$token = generateToken();
 
 // lil' variable to keep gyula away uwu lol xD
 $idk = "Fixy wixy me pls owo o_O";
