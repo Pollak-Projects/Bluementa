@@ -1,10 +1,10 @@
 <?php
 
-require_once("connect.php");
+require_once("global_connect.php");
 $id = 1;
 // Adatok lekérése
         $selected = $_POST['csoport-kilep'];
-        $sql = "DELETE FROM `tagok` WHERE `tagok`.`csop_id` = ? AND `tagok`.`user_id` = ?;";
+        $sql = "DELETE FROM `clubs_users_switch` WHERE `clubs_users_switch`.`club_id` = ? AND `clubs_users_switch`.`user_id` = ?;";
 
         $stmt = $mysqli->prepare($sql);
    

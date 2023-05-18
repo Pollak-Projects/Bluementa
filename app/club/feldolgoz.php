@@ -1,7 +1,7 @@
 <?php
 // This Code is made by Imii and Gabor 
 
-require_once("connect.php");
+require_once("global_connect.php");
 // Adatok lekérése
 $csoport = $_POST['csoport'];
 $description =  $_POST['des'];
@@ -9,7 +9,7 @@ $description =  $_POST['des'];
 if (!$description == NULL)
 {
     // Csapat készítés leírással együtt
-    $sql = "INSERT INTO `csapat` (`group_name`,`group_description`)
+    $sql = "INSERT INTO `club` (`club_name`,`club_description`)
     VALUES (?, ?)";
    $stmt = $mysqli->prepare($sql);
    
@@ -22,7 +22,7 @@ if (!$description == NULL)
 else
 {
     // Csapat készítés leírás nélkül
-    $sql = "INSERT INTO `csapat` (`group_name`)
+    $sql = "INSERT INTO `club` (`club_name`)
     VALUES (?)";
    $stmt = $mysqli->prepare($sql);
    

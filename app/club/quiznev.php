@@ -1,5 +1,5 @@
 <?php
-require_once("connect.php");
+require_once("global_connect.php");
 
 $quizid = $_POST['quizid'];
 
