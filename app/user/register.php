@@ -83,8 +83,8 @@ else{
         
         session_start();
         $_SESSION['id'] =  $id;
-        
-        echo 'there was some issue while registering!';
+         header('Location: token.html');
+         exit();
     }
     else{
         $stmt->close();
@@ -93,7 +93,9 @@ else{
         session_start();
         $_SESSION['id'] =  $id;
         
+        
         echo 'Succesful register!';
-        return http_response_code(200);
+        header('Location: token.html');
+        exit();
     }
 }
