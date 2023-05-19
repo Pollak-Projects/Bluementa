@@ -1,7 +1,7 @@
 <?php
 // This Code is made by Gabor 
-
-require_once("global_connect.php");
+if(!isset( $_SESSION["id"] )) return http_response_code(400);
+require_once("connect.php");
 // Adatok lekérése
 $id = $_POST['id'];
 $nev =  $_POST['nev'];
@@ -15,8 +15,8 @@ if ($permissionlvl == 1)
 }
 elseif ($permissionlvl == 2)
 {
-    header("Location: http://localhost/blue/assets/csoport-kezeles.html");
+    header("Location: http://localhost/blue/assets/tanar-kezeles.html");
     exit();
 }
-   
+
 ?>

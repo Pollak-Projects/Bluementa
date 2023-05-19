@@ -28,9 +28,9 @@
 <br>
 <br>
     <h3>Csapat törlés</h3>
-    <form method='POST' action="../torles.php" id="torles">
+    <form method='POST' action="../torles.php">
     <select name="csoportdel" id="csoporttorol" style="margin-left:20px ;">
-        <option value="-1" disabled selected>Válasszon csapatot!</option>
+        <option value="-1">Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" name="submit" value="Törlés" style="margin-left:150px ;">
@@ -43,7 +43,7 @@
     <form action="../csapat_csatlakoz.php" method="post">
 
     <select name="csoport-csat" id="csoport-csat" style="margin-left:20px ;">
-        <option value="-1" disabled selected>Válasszon csapatot!</option>
+        <option value="-1">Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" value="Csatlakozás" style="margin-left:150px ;">
@@ -56,7 +56,7 @@
     <!--Ha be van jelentkezve id alapján kilépés-->
     <form action="../csoport_kilepes.php" method="post">
     <select name="csoport-kilep" id="csoport-kilep" style="margin-left:20px ;">
-        <option value="-1" disabled selected>Válasszon csapatot!</option>
+        <option value="-1">Válasszon csapatot!</option>
     </select>
     <br>
     <input type="submit" value="Kilépés" style="margin-left:150px ;">
@@ -96,7 +96,7 @@
             {
         url: "../csoport_kilepheto.php",
         type: 'POST',  // http method
-        data: { tableName: 'clubs_users_switch' },  // data to submit
+        data: { tableName: 'members' },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function
@@ -116,5 +116,6 @@
     
     </script>
 
+    
 </body>
 </html>

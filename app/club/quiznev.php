@@ -1,11 +1,12 @@
 <?php
-require_once("global_connect.php");
+if(!isset( $_SESSION["id"] )) return http_response_code(400);
+require_once("connect.php");
 
 $quizid = $_POST['quizid'];
 
-$sql = "SELECT `quiz`.`quiz_name`\n"
+$sql = "SELECT `quizzez`.`quiz_name`\n"
 
-. "FROM `quiz` WHERE `quiz`.`quiz_id` = ?";
+. "FROM `quizzez` WHERE `quizzez`.`quiz_id` = ?";
 
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $quizid);
