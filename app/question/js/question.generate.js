@@ -1,9 +1,7 @@
-import { v4 as uuidv4 } from "https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js";
-
-function generateQuestion(oneData) {
-    let returnDivElement = document.createElement(div)
-    returnDivElement.id = uuidv4();
-    returnDivElement.className = "answers"
+export function generateQuestion(oneData, QuestionCounter) {
+    let returnDivElement = document.createElement("div")
+    returnDivElement.id = QuestionCounter
+    returnDivElement.className = "questions"
 
     if (oneData.question_type == "1") {
         let fejlec = document.createElement("h5")

@@ -46,22 +46,31 @@
   <div class="container">
 
   </div>
-  <script>
+  <script type="module">
     // TODO replace with require or smth
-    import { generateQuestion as gen } from "question.generate";
+    import { generateQuestion } from "../../question/js/question.generate.js";
+
+    // TODO replace with actual data when that's done
     let USER_ID, QUIZ_ID, NUMBEROFQUESTIONS;
     USER_ID = 2;
     QUIZ_ID = 3;
     NUMBEROFQUESTIONS = 121;
+
     $(document).ready(function () {
       $.ajax({
         url: "http://localhost/bluementa/Bluementa/app/quiz/backend.php",
-        data: {},
+        data: {
+          "USER_ID": USER_ID,
+          "QUIZ_ID": QUIZ_ID,
+          "NUMBEROFQUESTIONS": NUMBEROFQUESTIONS,
+        },
         type: "GET",
         dataType: "json",
         success: function (data, status, xhr) {
           console.log(data);
-          console.log(gen.generateQuestion('asd'));
+
+          // TODO finish integrating with quiz.get_question.php
+          console.log(generateQuestion('asd', 1));
         },
         error: function (request, status, error) {
           console.log(error);
