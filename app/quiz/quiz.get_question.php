@@ -8,7 +8,8 @@ $userId = $_GET["USER_ID"];
 $numberOfQuestions = $_GET["NUMBEROFQUESTION"];
 
 // this will get the current question to be 'rendered'
-function asd( ) {
+function asd()
+{
     // code stolen from patrik, fuck u
     require_once("../global/database_connection/global_connect.php");
 
@@ -18,9 +19,11 @@ function asd( ) {
     WHERE `questions_quizzes_switch`.`quizzes_quiz_id` = ?
     ";
 
-    // TODO finish bind param to get all question data and return
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("i", $quizId);
+    $stmt->execute();
 
-    $result = $mysqli->query($sql);
+    $result = $stmt->get_result();
 
     $data = [];
 
@@ -41,4 +44,6 @@ function asd( ) {
     }
     return json_encode($data);
 }
+
+echo asd();
 ?>
