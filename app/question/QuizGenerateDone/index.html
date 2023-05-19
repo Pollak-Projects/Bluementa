@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../global/assets/global_Bluementa.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+        <title>Quiz form</title>
+    </head>
+<body>
+    
+  <div class="zg">
+    <h1>Quiz létrehozása</h1>
+        <label for="quiz_neve">Quiz neve:</label>
+        <input type="text" id="quiz_neve" name="quiz_neve" ><br><br>
+
+        <label for="quiz_leiras">Quiz leírása:</label><br>
+        <textarea  id="quiz_leiras" name="quiz_leiras" rows="10" cols="70"></textarea>
+        <br>
+    <form>
+        <div id="general_information">
+            <input type="number" placeholder="Hany kerdes legyen" id="number"><br>
+            <button onclick="NumberOfQuestions()" type="button">Kerdesek generalasa</button>
+        <div id="forma"></div>
+
+
+
+    </form>
+
+    <br><button type="button" onclick="SubmitQuestion()">Submit</button>
+
+    <script>
+        let questions = 0;
+        let QuestionTypesWithNumber = []
+
+        function NumberOfQuestions(){
+            number = document.getElementById("number").value
+            questions = document.getElementById("number").value
+            for(let i = 0;i < number; i++){
+                $("#forma").append(`   <br> <form>
+                    <div id="general_information_${i}">
+                        <input type="text" name="question_name" id="question_name_${i}" placeholder="Kerdes neve">
+                        <br>
+                        <input type="text" name="question_description" id="question_description_${i}" placeholder="Kerdes leirasa">
+                        <br>
+                        <select name="question_type" id="question_type_${i}" onchange="GenerateQuestionForm(${i})">
+                            <option disabled selected>Valasszon kerdes tipust</option>
+                            <option value="1">Egy helyes valasz</option>
+                            <option value="2">Tobb helyes valasz</option>
+                            <option value="3">Valasz parok</option>
+                            <option value="4">Sorrend</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div id="question_information_${i}">
+            
+                    </div>
+                    <br>
+                    <div id="question_answers_${i}">
+            
+                    </div>
+                    <div id="question_submit_${i}">
+            
+                    </div>
+                </form>`)
+            }
+        }
+        let variable1 = variable2 = variable3 = variable4 = variable5 = variable6 = variable7 = variable8 = null;
+        let qId = null
+        let numOfWrongAnswers = numOfRightAnswers = numOfAnswers = null;
+
+        function GenerateQuestionForm(int) {
+            $("#question_information_"+int+"").html("")
+            $("#question_answers_"+int+"").html("")
+            $("#question_submit_"+int+"").html("")
+
+            numOfWrongAnswers = numOfRightAnswers = numOfAnswers = null;
+
+            let node = $("#question_type_"+int+"").val()
+            switch (node) {
+                case "1":
+                    GenerateOneAnswerInformation(int);
+                    variable8 = parseInt(node);
+                    break;
+                case "2":
+                    GenerateMultipleAnswerInformation(int);
+                    variable8 = parseInt(node);
+                    break;
+                case "3":
+                    GenerateAnswerPairsInformation(int);
+                    variable8 = parseInt(node);
+                    break;
+                case "4":
+                    GenerateOrderedAnswersInformation(int);
+                    variable8 = parseInt(node);
+                    break;
+            }
+        }
+
+        function GenerateOneAnswerInformation(alma) {
+            $("#question_information_"+alma+"").html("")
+
+            $("#question_information_"+alma+"").append(`<p>Hany rossz valasz legyen?<p>`)
+
+            let howManyQuestions = `
+            <select id="num_of_questions_${alma}" onchange="GenerateOneAnswerForm(this, ${alma})">
+                <option value="" disabled selected>Mennyi legyen?</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>`
+
+            $("#question_information_"+alma+"").append(howManyQuestions)
+        }
+
+        function GenerateOneAnswerForm(node, korte) {
+            $("#question_answers_"+korte+"").html("")
+
+            numOfAnswers = parseInt(node.value) + 1
+            console.log("numOfAnswersFIRST " + numOfAnswers);
+
+            $("#question_answers_"+korte+"").append(`<p>A helyes valasz<p>`)
+            $("#question_answers_"+korte+"").append(`<input type="text" id="right_answer_${korte}" placeholder="A jo valasz">`)
+
+            $("#question_answers_"+korte+"").append(`<p>A helytelen valaszok<p>`)
+            for (let i = 1; i < parseInt(node.value) + 1; i++) {
+                $("#question_answers_"+korte+"").append(`<input type="text" id="wrong_answers_${korte}_${i}" placeholder="Egy rossz valasz"><br>`)
+
+            }
+
+            QuestionTypesWithNumber[korte] = "1;"+parseInt(node.value)+""
+        }
+
+        function GenerateMultipleAnswerInformation(eper) {
+            $("#question_information_"+eper+"").html("")
+
+            let questionSelectElement = GenerateSelectElement("num_of_answers_"+eper+"", "SetMultipleAnswerFormData(this, "+eper+")")
+            $("#question_information_"+eper+"").append("<p>Hany valasz legyen<p>")
+            $("#question_information_"+eper+"").append(questionSelectElement)
+
+            let answerSelectElement = GenerateSelectElement("num_of_correct_answers_"+eper+"", "SetMultipleAnswerFormData(this, "+eper+")")
+            $("#question_information_"+eper+"").append("<p>Hany jo valasz legyen<p>")
+            $("#question_information_"+eper+"").append(answerSelectElement)
+        }
+
+        function SetMultipleAnswerFormData(node, dio) {
+
+            if (node.id == "num_of_answers_"+dio+"") numOfAnswers = parseInt(node.value)
+            if (node.id == "num_of_correct_answers_"+dio+"") numOfRightAnswers = parseInt(node.value)
+
+            if (numOfAnswers !== null && numOfRightAnswers !== null) {
+                numOfWrongAnswers = numOfAnswers - numOfRightAnswers
+                GenerateMultipleAnswerForm(dio)
+            }
+        }
+
+        function GenerateMultipleAnswerForm(repa) {
+            $("#question_answers_"+repa+"").html("")
+
+            $("#question_answers_"+repa+"").append(`<p>A helyes valaszok<p>`)
+            for (let i = 1; i < numOfRightAnswers + 1; i++) {
+                console.log("repa")
+                $("#question_answers_"+repa+"").append(`<input type="text" id="right_answers_${repa}_${i}" placeholder="Egy jo valasz"><br>`)
+            }
+
+            $("#question_answers_"+repa+"").append(`<p>A helytelen valaszok<p>`)
+            for (let i = 1; i < numOfWrongAnswers + 1; i++) {
+                $("#question_answers_"+repa+"").append(`<input type="text" id="wrong_answers_${repa}_${i}" placeholder="Egy rossz valasz"><br>`)
+            }
+
+            QuestionTypesWithNumber[repa] = "2;"+numOfRightAnswers+":"+numOfWrongAnswers+""
+        }
+
+        function GenerateAnswerPairsInformation(makk) {
+            $("#question_information_"+makk+"").html("")
+
+            let pairSelectElement = GenerateSelectElement("num_of_answers_pairs_"+makk+"", "GenerateAnswerPairsForm(this, "+makk+")")
+            $("#question_information_"+makk+"").append(`<p>Hany par<p>`)
+            $("#question_information_"+makk+"").append(pairSelectElement)
+        }
+
+        function GenerateAnswerPairsForm(node, dinnye) {
+            $("#question_answers_"+dinnye+"").html("")
+
+            numOfAnswers = parseInt(node.value)
+
+            $("#question_answers_"+dinnye+"").append(`<p>Ide irja a helyes megoldasokat</p>`)
+            for (let i = 1; i < parseInt(node.value) + 1; i++) {
+                $("#question_answers_"+dinnye+"").append(`<input type="text" id="firstValue_${dinnye}_${i}" placeholder="A par egyik fele">`)
+                $("#question_answers_"+dinnye+"").append(`<input type="text" id="secondValue_${dinnye}_${i}" placeholder="A par masik fele">`)
+                $("#question_answers_"+dinnye+"").append(`<br> <br>`)
+            }
+
+            QuestionTypesWithNumber[dinnye] = "3;"+numOfAnswers+""
+        }
+
+        function GenerateOrderedAnswersInformation(hagyma) {
+            $("#question_information_"+hagyma+"").html("")
+
+            let orderedSelectElement = GenerateSelectElement("num_of_ordered_answers_"+hagyma+"", "GenerateOrderedAnswerForm(this, "+hagyma+")")
+            $("#question_information_"+hagyma+"").append(`<p>Hany legyen<p>`)
+            $("#question_information_"+hagyma+"").append(orderedSelectElement)
+
+        }
+
+        function GenerateOrderedAnswerForm(node, szamoca) {
+            $("#question_answers_"+szamoca+"").html("")
+
+            numOfAnswers = parseInt(node.value)
+
+            for (let i = 1; i < parseInt(node.value) + 1; i++) {
+                $("#question_answers_"+szamoca+"").append(`<input type="text" id="orderedanswer_${szamoca}_${i}" placeholder="${i}. valasz"><br>`)
+            }
+            $("#question_answers_"+szamoca+"").append(`<br>`)
+
+            QuestionTypesWithNumber[szamoca] = "4;"+numOfAnswers+""
+        }
+
+        function GenerateSelectElement(idName, onchangeFunction) {
+            let selectElement = $(`<select id="${idName}" onchange="${onchangeFunction}"></select>`)
+
+            selectElement.append(`<option disabled selected>Mennyi legyen?</option>`)
+            for (let i = 1; i < 7; i++) {
+                selectElement.append(`<option value="${i}">${i}</option>`)
+            }
+
+            return selectElement;
+        }
+
+        function SubmitQuestion() {
+            gId = 100
+            variable1 = 100
+            SendQuizAjax()
+            for(let i = 0; i < QuestionTypesWithNumber.length; i++){
+                variable3 = $("#question_name_"+i+"").val()
+                variable7 = $("#question_description_"+i+"").val()
+
+                let QType = QuestionTypesWithNumber[i].split(';')
+
+                let RAnswer = null
+                let WAnswer = null
+
+                if(QType[0] == "2"){
+                    Answers = QType[1].split(':')
+                    RAnswer = Answers[0]
+                    WAnswer = Answers[1]
+                }
+
+                variable8 = QType[0]
+
+                switch (variable8) {
+                    case "1":
+                        OneAnswerAjax(i, QType[1]);
+                        break;
+                    case "2":
+                        MultipleAnswerAjax(i, RAnswer, WAnswer);
+                        break;
+                    case "3":
+                        AnswerPairAjax(i, QType[1]);
+                        break;
+                    case "4":
+                        OrderedAnswerAjax(i, QType[1]);
+                        break;
+                }
+                numOfWrongAnswers = numOfRightAnswers = numOfAnswers = QType = null;
+                variable2 = variable3 = variable4 = vasriable5 = variable6 = variable7 = variable8 = null;
+            }
+            location.reload()
+        }
+        let lastId
+        function test(){
+            console.log(lastId)
+        }
+        function SendQuizAjax(){
+            let qName = $(`#quiz_neve`).val()
+            let qDescription = $(`#quiz_leiras`).val()
+            let nOfQuestions = QuestionTypesWithNumber.length
+
+            $.ajax(
+                {
+                    url: "quizupload.php",
+                    type: 'POST',
+                    data: {
+                        registrationId: variable1,
+                        quizId: lastId+1,
+                        groupId: gId,
+                        quizName: qName,
+                        quizDescription: qDescription,
+                        numberOfQuestions: nOfQuestions,
+                    },
+                    dataType: 'json',
+                    success: function (data, status, xhr) {
+                        alert("Sikeres feltoltes")
+                    }
+                });
+        }
+        function OneAnswerAjax(place, wanswers) {
+            variable5 = 1
+            
+            variable6 = $(`#right_answer_${place}`).val()
+
+            let wrongAnswers = []
+
+            for (let i = 0; i < wanswers; i++) {
+                let e = $(`#wrong_answers_${place}_${i+1}`).val()
+                wrongAnswers.push(e)
+            }
+            wrongAnswers.push(variable6)
+
+            variable4 = wrongAnswers.join(';', variable6)
+
+            SendAjax()
+        }
+
+        function MultipleAnswerAjax(place, ranswers, wanswers) {
+            variable5 = ranswers
+
+            let rightAnswers = []
+            for (let i = 0; i < ranswers; i++) {
+                let e = $(`#right_answers_${place}_${i+1}`).val()
+                rightAnswers.push(e)
+            }
+            variable6 = rightAnswers.join(';')
+
+            let wrongAnswers = []
+            for (let i = 0; i < wanswers; i++) {
+                let e = $(`#wrong_answers_${place}_${i+1}`).val()
+                wrongAnswers.push(e)
+            }
+            wrongAnswers.push(variable6)
+            variable4 = wrongAnswers.join(';')
+
+            SendAjax()
+        }
+
+        function AnswerPairAjax(place, answers) {
+            variable5 = answers
+
+            let allAnswerPairs = []
+            for (let i = 0; i < answers; i++) {
+                let x = $(`#firstValue_${place}_${i+1}`).val()
+                let y = $(`#secondValue_${place}_${i+1}`).val()
+
+                allAnswerPairs.push(`${x}:${y}`)
+            }
+
+            variable6 = allAnswerPairs.join(';')
+
+            variable4 = allAnswerPairs.join(';')
+
+            SendAjax()
+        }
+
+        function OrderedAnswerAjax(place, answers) {
+            variable5 = 1
+
+            let allOrderedAnswers = []
+            for (let i = 0; i < answers; i++) {
+                let e = $(`#orderedanswer_${place}_${i+1}`).val()
+                allOrderedAnswers.push(e)
+            }
+            variable6 = allOrderedAnswers.join(';')
+
+            variable4 = allOrderedAnswers.join(';')
+
+            SendAjax();
+
+        }
+
+        function SendAjax() {
+            $.ajax(
+                {
+                    url: "questionupload.php",
+                    type: 'POST',
+                    data: {
+                        registrationId: variable1,
+                        quizId: lastId+1,
+                        questionQuestion: variable3,
+                        questionAnswers: variable4,
+                        questionMarkableAnswers: variable5,
+                        questionCorrectAnswers: variable6,
+                        questionDescription: variable7,
+                        questionType: variable8
+                    },
+                    dataType: 'json',
+                    success: function (data, status, xhr) {
+                        alert("Sikeres feltoltes")
+                    },
+                    error: function(error){
+                        console.log(error)
+                    }
+                });
+                console.log(variable1, variable2, variable3, variable4, variable5, variable6, variable7, variable8)
+        }
+        $(document).ready(function () {
+            $.ajax(
+                {
+                    url: "getlastid.php",
+                    type: 'GET',
+                    data: { },
+                    dataType: 'json',
+                }).done(function(data){
+                    lastId = data
+                });
+            document.getElementById("question_type").onchange = GenerateQuestionForm;
+            $.ajax({
+                url: "http://localhost/bluementa/Question/app/question/userid.php",
+                type: "GET",
+                dataType: "json",
+                success: function (data, status, xhr) {
+                    variable1 = data.user_id
+                },
+                error: function (request, status, error) {
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+
+            })
+        });
+    </script>
+</body>
+</html>
