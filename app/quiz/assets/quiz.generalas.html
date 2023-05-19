@@ -43,20 +43,29 @@
       <a href="#">Árak</a>
     </div>
   </nav>
-  <div class="container">
-
+  <div id="containerID">
+    <!-- TODO add actual ui elements, nothing will do for now -->
   </div>
   <script type="module">
     // TODO replace with require or smth
     import { generateQuestion } from "../../question/js/question.generate.js";
 
+    // HACK magic counter, needs better implementation
+    let questionCounter = 0;
+
     // TODO replace with actual data when that's done
     let USER_ID, QUIZ_ID, NUMBEROFQUESTIONS;
     USER_ID = 2;
-    QUIZ_ID = 3;
-    NUMBEROFQUESTIONS = 121;
+    QUIZ_ID = 4;
+    NUMBEROFQUESTIONS = 2;
 
     $(document).ready(function () {
+      for (let i = 0; i < NUMBEROFQUESTIONS; i++) {
+        getNextQuestionAndPrint();
+      }
+    })
+    
+    function getNumberOfQuestions() {
       $.ajax({
         url: "http://localhost/bluementa/Bluementa/app/quiz/backend.php",
         data: {
@@ -68,15 +77,41 @@
         dataType: "json",
         success: function (data, status, xhr) {
           console.log(data);
-
-          // TODO finish integrating with quiz.get_question.php
-          console.log(generateQuestion('asd', 1));
         },
         error: function (request, status, error) {
+          // FIXME this isnt good, the user shouldnt see the error messages. Too bad!
+          console.log(request);
+          console.log(status);
           console.log(error);
         }
       })
-    })
+    }
+
+    function getNextQuestionAndPrint() {
+      $.ajax({
+        url: "http://localhost/bluementa/Bluementa/app/quiz/quiz.get_question.php",
+        data: {
+          "QUIZ_ID": QUIZ_ID,
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          console.log(data[questionCounter])
+
+          let containerNode = document.getElementById("containerID")
+          containerNode.appendChild(generateQuestion(data[questionCounter], questionCounter))
+
+          // HACK this will lead to bugs if its called unnecessarily
+          questionCounter += 1
+        },
+        error: function (request, status, error) {
+          // FIXME in here too!
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      })
+    }
   </script>
 </body>
 

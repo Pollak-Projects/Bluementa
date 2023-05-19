@@ -1,3 +1,4 @@
+// HACK this somehow works? needs abstration
 export function generateQuestion(oneData, QuestionCounter) {
     let returnDivElement = document.createElement("div")
     returnDivElement.id = QuestionCounter
@@ -19,7 +20,7 @@ export function generateQuestion(oneData, QuestionCounter) {
         for (let valasz of oneData.question_answers.split(';')) {
             let valaszbody = document.createElement("div")
             valaszbody.className = "form-check"
-            document.getElementById(kerdes.question_id).appendChild(valaszbody)
+            returnDivElement.appendChild(valaszbody)
 
             let radio = document.createElement("input")
             radio.type = "radio"
@@ -50,7 +51,7 @@ export function generateQuestion(oneData, QuestionCounter) {
         for (let valasz of oneData.question_answers.split(';')) {
             let valaszbody = document.createElement("div")
             valaszbody.className = "form-check"
-            document.getElementById(oneData.question_id).appendChild(valaszbody)
+            returnDivElement.appendChild(valaszbody)
 
             let radio = document.createElement("input")
             radio.type = "checkbox"
@@ -169,12 +170,11 @@ export function generateQuestion(oneData, QuestionCounter) {
         returnDivElement.appendChild(dragContainer)
 
         for (let valasz of oneData.question_answers.split(';')) {
-            let lista = document.getElementById(oneData.question_id + "_draglist")
             let dragButton = document.createElement("button")
             dragButton.style = "display:flex"
             dragButton.setAttribute("draggable", "true");
             dragButton.innerHTML = valasz
-            lista.appendChild(dragButton)
+            dragkartya.appendChild(dragButton)
         }
     }
 

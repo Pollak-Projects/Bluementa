@@ -6,5 +6,3 @@ if (!$mysqli) {
 }
 
 @$mysqli->query('SET NAMES utf8mb4');
-
-

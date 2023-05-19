@@ -1,6 +1,7 @@
 <?php
 // debugger ENABLE ONLY IN DEVELOPEMENT
-error_reporting(E_ALL); ini_set('display_errors', '1');
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 //require_once realpath(__DIR__ . '/vendor/autoload.php');
 
@@ -19,8 +20,8 @@ $fields = [
     'lastname'
 ];
 
-foreach( $fields as $field){
-    if(!$_POST[$field]){
+foreach ($fields as $field) {
+    if (!$_POST[$field]) {
         echo 'missing field: ' . $field;
         return http_response_code(400);
     }
@@ -34,12 +35,11 @@ $stmt->bind_param("ss", $_POST['username'],  $_POST['email']);
 $stmt->execute();
 $stmt->store_result();
 
-if($stmt->num_rows() > 0){
+// XXX fixed a whole lotta HOOPLA
+if ($stmt->num_rows() > 0) {
     echo 'User as alias already exists!';
     return http_response_code(409);
-}
-
-else{
+} else {
     $stmt->close();
     $mysqli->next_result();
 
@@ -53,20 +53,21 @@ else{
         user_permission_level
     ) VALUES (?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($sql);
-    
+
     require("./assets/gen_uuid.php");
     $id = gen_uuid();
 
     $default = "default";
     echo $id;
-    $stmt->bind_param("sssssss", 
-    $id,
-    $_POST['username'],
-    $_POST['password'],
-    $_POST['email'],
-    $_POST['firstname'],
-    $_POST['lastname'],
-    $default
+    $stmt->bind_param(
+        "sssssss",
+        $id,
+        $_POST['username'],
+        $_POST['password'],
+        $_POST['email'],
+        $_POST['firstname'],
+        $_POST['lastname'],
+        $default
     );
     $stmt->execute();
     $stmt->store_result();
@@ -76,24 +77,24 @@ else{
     // we made a little fucksy wupsy ... owo oh no?
     // user can register even tho they shouldn't???
     // who careswwww ??? >_<
-    if( $lines <= 0){
+    // i careww *·* !!!
+    if ($lines <= 0) {
         $stmt->close();
         $mysqli->next_result();
 
-        
+
         session_start();
         $_SESSION['id'] =  $id;
-         header('Location: token.html');
-         exit();
-    }
-    else{
+        header('Location: token.html');
+        exit();
+    } else {
         $stmt->close();
         $mysqli->next_result();
 
         session_start();
         $_SESSION['id'] =  $id;
-        
-        
+
+
         echo 'Succesful register!';
         header('Location: token.html');
         exit();

@@ -3,14 +3,12 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) != "GET") {
     exit(0);
 }
 
-$quizId = $_GET["QUIZ_ID"];
-$userId = $_GET["USER_ID"];
-$numberOfQuestions = $_GET["NUMBEROFQUESTION"];
-
 // this will get the current question to be 'rendered'
 function asd()
 {
-    // code stolen from patrik, fuck u
+    $quizId = $_GET["QUIZ_ID"];
+
+    // code stolen from patrik, because fuck u
     require_once("../global/database_connection/global_connect.php");
 
     $sql = "SELECT `questions`.*
@@ -46,4 +44,3 @@ function asd()
 }
 
 echo asd();
-?>
