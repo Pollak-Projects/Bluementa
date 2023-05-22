@@ -1,49 +1,43 @@
 <?php
 
-//if(!isset( $_SESSION["id"] )) return http_response_code(400);
-
+error_reporting(E_ALL); ini_set('display_errors', '1');
 require_once("connect.php");
-/*
-//$user = validate($_COOKIE["token"]);
-    $sql = "SELECT `clubs`.`club_registration_number` FROM `clubs` WHERE `clubs`.`club_registration_number` = ?;";
+
+// validating user
+include(dirname(__FILE__)."../../user/controllers/validate_session.php");
+if(!validate_session()) return http_response_code(401);
+
+// checking if token is included in body
+if(!isset($_POST['token'])) return http_response_code(400);
+
+$sql = "SELECT * FROM `club_tokens` WHERE `token` = ?";
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_param("s", $_POST['token'],);
+$stmt->execute();
+$result = $stmt->get_result();
+$club_data = $result->fetch_assoc();
+
+// in case no token exists under that string
+if( !isset($club_data['club_id']) ) return http_response_code(400);
+
+// getting club from db
+$sql = "SELECT * FROM `clubs` WHERE `club_id` = ?";
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_param("i",$club_data['club_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+$dbclub = $result->fetch_assoc();
 
 
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("i", $selected);
-    $stmt->execute();
-    $stmt->store_result();
-
-    $sorok = $stmt->num_rows;
 
 
+$selected = $dbclub['club_id'];
+$id = get_user_session_id();
+$sql = "INSERT INTO `clubs_users_switch` (`club_id`, `user_id`) VALUES (?, ?);";
+$stmt = $mysqli->prepare($sql);   
 
-//Minta token validálásra
-// Adatok lekérése
-*/
-    if(!empty($_POST['csoport-csat'])) {
-        $selected = $_POST['csoport-csat'];
-        $sql = "SELECT `club_tokens`.`token`, `club_tokens`.`club_id`\n"
+$stmt->bind_param("is", $selected,$id);
+$stmt->execute();
+echo "Sikeres csatlakozás a csapathoz!";
 
-        . "FROM `club_tokens`\n"
-
-        . "WHERE `club_tokens`.`token`= '?';";
-        //SELECT `club_tokens`.`token`, `club_tokens`.`club_id` FROM `club_tokens` WHERE `club_tokens`.`token`= "25dF4";
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("s", $selected);
-        $stmt->execute();
-        $clubid = $stmt->store_result();
-        $id = "5f0003d1-f615-11ed-9e3f-0a002700000f";//$user.id;
-        $sql = "INSERT INTO `users_clubs_switch` (`user_id`, `club_id`) VALUES (?, ?);";
-
-
-        $stmt = $mysqli->prepare($sql);
-   
-
-        $stmt->bind_param("si", $id,$clubid);
-        $stmt->execute();
-        echo "Sikeres csatlakozás a csapathoz!";
-        $stmt->close();
-        $mysqli->close();
-        }
-    
 ?>

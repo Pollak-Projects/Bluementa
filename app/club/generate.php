@@ -1,6 +1,10 @@
 <?php
 
 require_once("connect.php");
+// validating user
+include(dirname(__FILE__)."../../user/controllers/validate_session.php");
+if(!validate_session()) return http_response_code(401);
+
 
 $fields = [
     'club_id'
@@ -28,7 +32,7 @@ function generateToken() {
 $token = generateToken();
 
 // lil' variable to keep gyula away uwu lol xD
-$idk = "Fixy wixy me pls owo o_O";
+$idk = get_user_session_id() || "someone";
 
 $sql = "INSERT INTO club_tokens (token, club_id, user_id) VALUES(?, ?, ?)";
 $stmt = $mysqli->prepare($sql);
