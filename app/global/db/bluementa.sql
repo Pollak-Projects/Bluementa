@@ -126,6 +126,21 @@ INSERT INTO `quizzes` (`quiz_id`, `registration_id`, `group_id`, `quiz_name`, `q
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `solved_quiz`
+--
+
+CREATE TABLE `solved_quiz` (
+  `solved_id` int(250) NOT NULL,
+  `user_id` int(250) NOT NULL,
+  `quiz_id` int(250) NOT NULL,
+  `quiz_max_point` int(250) NOT NULL,
+  `quiz_obtained_point` int(250) NOT NULL,
+  `quiz_percentage` int(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -173,6 +188,14 @@ ALTER TABLE `quizzes`
   ADD PRIMARY KEY (`quiz_id`);
 
 --
+-- A tábla indexei `solved_quiz`
+--
+ALTER TABLE `solved_quiz`
+  ADD PRIMARY KEY (`solved_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `quiz_id` (`quiz_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -207,6 +230,12 @@ ALTER TABLE `quizzes`
   MODIFY `quiz_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123235;
 
 --
+-- AUTO_INCREMENT a táblához `solved_quiz`
+--
+ALTER TABLE `solved_quiz`
+  MODIFY `solved_id` int(250) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -222,6 +251,14 @@ ALTER TABLE `users`
 ALTER TABLE `questions_quizzes_switch`
   ADD CONSTRAINT `questions_quizzes_switch_ibfk_1` FOREIGN KEY (`quizzes_quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `questions_quizzes_switch_ibfk_2` FOREIGN KEY (`questions_question_id`) REFERENCES `questions` (`question_id`) ON UPDATE CASCADE;
+COMMIT;
+
+--
+-- Megkötések a táblához `solved_quiz`
+--
+ALTER TABLE `solved_quiz`
+  ADD CONSTRAINT `solved_quiz_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solved_quiz_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
