@@ -44,7 +44,17 @@
     </div>
   </nav>
   <div id="containerID">
-    <!-- TODO add actual ui elements, nothing will do for now -->
+    <br>
+    <br>
+    <br>
+  </div>
+  <div id="markQuiz">
+    <div id="uploadQuiz">
+      <!-- TODO ellenorzes() megcsinalasa MOST SEMMIT NEM CSINAL
+                tovabb kene iranyitania egy oldalra ahol kiirjuk az eredmenyt
+      -->
+      <button onclick="ellenorzes()">Ellenorzes</button>
+    </div>
   </div>
   <script type="module">
     // TODO replace with require or smth
@@ -64,7 +74,7 @@
         getNextQuestionAndPrint();
       }
     })
-    
+
     function getNumberOfQuestions() {
       $.ajax({
         url: "http://localhost/bluementa/Bluementa/app/quiz/backend.php",

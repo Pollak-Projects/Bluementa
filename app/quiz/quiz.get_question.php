@@ -6,6 +6,12 @@ if (strtoupper($_SERVER["REQUEST_METHOD"]) != "GET") {
 // this will get the current question to be 'rendered'
 function asd()
 {
+    session_start();
+
+    // HACK this will be awful to debug, Too bad!
+    $quizId = $_SESSION["quiz_id"];
+
+    // FIXME deprecated code used for testing
     $quizId = $_GET["QUIZ_ID"];
 
     // code stolen from patrik, because fuck u
