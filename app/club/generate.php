@@ -1,7 +1,6 @@
 <?php
 
 require_once("connect.php");
-
 // validating user
 include(dirname(__FILE__)."../../user/controllers/validate_session.php");
 if(!validate_session()) return http_response_code(401);
