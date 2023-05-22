@@ -1,7 +1,9 @@
 <?php
 // This Code is made by Imii and Gabor and Barta uwu
 
-require_once("connect.php");
+require_once("global_connect.php");
+//Checking if the body is filled
+
 
 // Adatok lekérése
 $csoport = $_POST['csoport'];
@@ -32,16 +34,22 @@ else
 
 }
 
-$stmt->close();
+
 $mysqli->next_result();
 
-$sql = "SELECT club_name FROM club";
-$row = array();
-if ($result = $mysqli -> query($sql)) {
-    $row = $result -> fetch_row();
+$sql = "SELECT club_id FROM clubs WHERE club_name = (?)";
+$result = array();
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_param("s", $csoport);
+$stmt->execute();
+$stmt->store_result();
 
-    $result -> free_result();
+$stmt->bind_result($clubId);
+while ($stmt->fetch()) {
+    $result[] = $clubId;
 }
+
+$stmt->close();
 
 
 $mysqli->next_result();
@@ -69,10 +77,12 @@ $idk = "Fixy wixy me pls owo o_O";
 $sql = "INSERT INTO club_tokens (token, club_id, user_id) VALUES(?, ?, ?)";
 $stmt = $mysqli->prepare($sql);
 
-$stmt->bind_param("sis", generateToken(), $row[0], $idk);
+$stmt->bind_param("sis", $token, $clubId, $idk);
 $stmt->execute();
 $stmt->store_result();
 
+
+echo "<h1>",$token,"</h1>";
 if(mysqli_affected_rows($mysqli) <= 1){
     return http_response_code(201);
 }
