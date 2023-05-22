@@ -2,25 +2,13 @@
 // This Code is made by Imii and Gabor and Barta uwu
 
 require_once("connect.php");
-//Checking if the body is filled
-$fields = [
-    'club_id',
-    'csoport',
-];
-
-foreach( $fields as $field){
-    if(!$_POST[$field]){
-        echo 'missing field: ' . $field;
-        return http_response_code(400);
-    }
-}
 
 // Adatok lekérése
 $csoport = $_POST['csoport'];
 $description = $_POST['des'];
 //var_dump($description);
 
-if ( !isset($description) )
+if ( !$description == NULL )
 {
     // Csapat készítés leírással együtt
     $sql = "INSERT INTO clubs (club_name, club_description) VALUES (?, ?)";

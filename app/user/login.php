@@ -33,8 +33,8 @@ if(  !isset($row['user_id']) ){
 }
 else{
     session_start();
-    $_SESSION['id'] = $row['userid'];
-
+    $_SESSION['id'] = $row['user_id'];
+    
     return http_response_code(200);
 }
 

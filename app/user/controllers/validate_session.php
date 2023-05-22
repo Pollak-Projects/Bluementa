@@ -13,8 +13,9 @@ function validate_session(){
 */
 function get_user_session_id(){
     session_start();
-    if( isset($_SESSION["id"])) return new Error("No user under this id");
-    
+
+    if( !isset($_SESSION['id'])) return new Error("No user under this id");
+
     return $_SESSION["id"];
 }
 ?>
