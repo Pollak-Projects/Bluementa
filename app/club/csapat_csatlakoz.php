@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_ALL); ini_set('display_errors', '1');
-require_once("connect.php");
+require_once("global_connect.php");
 
 // validating user
 include(dirname(__FILE__)."../../user/controllers/validate_session.php");
@@ -33,11 +33,13 @@ $dbclub = $result->fetch_assoc();
 
 $selected = $dbclub['club_id'];
 $id = get_user_session_id();
-$sql = "INSERT INTO `clubs_users_switch` (`club_id`, `user_id`) VALUES (?, ?);";
+$sql = "INSERT INTO `users_clubs_switch` (`club_id`, `user_id`) VALUES (?, ?);";
 $stmt = $mysqli->prepare($sql);   
 
 $stmt->bind_param("is", $selected,$id);
 $stmt->execute();
-echo "Sikeres csatlakozás a csapathoz!";
+
+header('Location: ./assets/tanuloi-felulet.html');
+exit();
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once("connect.php");
+require_once("global_connect.php");
 $table = $_POST['tableName'];
 $sql = "SELECT * FROM `".$table. "`";
 
