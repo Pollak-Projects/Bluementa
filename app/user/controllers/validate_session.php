@@ -12,7 +12,7 @@ function validate_session(){
  * Vissza adja a felhasználó user_id-jét ha létezik. Ha nem akkor error-t ad vissza
 */
 function get_user_session_id(){
-    session_start();
+    // session_start();
 
     if( !isset($_SESSION['id'])) return new Error("No user under this id");
 
