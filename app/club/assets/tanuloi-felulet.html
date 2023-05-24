@@ -16,12 +16,13 @@
     
 
     <form action="../csapat_csatlakoz.php" method="post">
-
-        <p>Írja be a csapat kódját amellyel csatlakozhat a csapatba!</p>
-        <input type="text" name="csoport-csat" id="csoport-csat">
-    <br>
-    <br>
-    <input type="submit" value="Csatlakozás" style="margin-left:150px ;" onchange="Generate()">
+        <h1>Írd be a kapott kódot:</h1>
+        <div class="asd">
+          <input type="text" placeholder="KÓD:" name="token" required>
+        </div>
+        <div class="asd2">
+          <input type="submit" required>
+        </div>
 
     </form>
 
@@ -71,7 +72,7 @@
             {
         url: "../csoport_kilepheto.php",
         type: 'POST',  // http method
-        data: { tableName: 'members' },  // data to submit
+        data: { tableName: 'users_clubs_switch' },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function
