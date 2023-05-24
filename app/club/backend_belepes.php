@@ -1,6 +1,8 @@
 <?php
 // This Code is made by Gabor 
-if(!isset( $_SESSION["id"] )) return http_response_code(400);
+// validating user
+include(dirname(__FILE__)."../../user/controllers/validate_session.php");
+if(!validate_session()) return http_response_code(401);
 require_once("connect.php");
 // Adatok lekérése
 $id = $_POST['id'];
