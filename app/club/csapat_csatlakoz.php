@@ -12,7 +12,7 @@ if(!isset($_POST['token'])) return http_response_code(400);
 
 $sql = "SELECT * FROM `club_tokens` WHERE `token` = ?";
 $stmt = $mysqli->prepare($sql);
-$stmt->bind_param("s", $_POST['token'],);
+$stmt->bind_param("s", $_POST['token']);
 $stmt->execute();
 $result = $stmt->get_result();
 $club_data = $result->fetch_assoc();

@@ -7,9 +7,9 @@ require_once("global_connect.php");
 
 $quizid = $_POST['quizid'];
 
-$sql = "SELECT `quizzez`.`quiz_name`\n"
+$sql = "SELECT `quizzes`.`quiz_name`\n"
 
-. "FROM `quizzez` WHERE `quizzez`.`quiz_id` = ?";
+. "FROM `quizzes` WHERE `quizzes`.`quiz_id` = (?)";
 
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $quizid);
