@@ -126,6 +126,37 @@ ALTER TABLE `tagok`
   ADD CONSTRAINT `tagok_ibfk_2` FOREIGN KEY (`csop_id`) REFERENCES `csapat` (`group_id`) ON DELETE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
+--
+-- Tábla szerkezet ehhez a táblához `club_tokens`
+--
+
+CREATE TABLE `club_tokens` (
+  `id` int(11) NOT NULL,
+  `token` varchar(5) COLLATE utf8mb4_bin NOT NULL,
+  `club_id` int(11) NOT NULL,
+  `user_id` varchar(36) COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Indexek a kiírt táblákhoz
+--
+
+--
+-- A tábla indexei `club_tokens`
+--
+ALTER TABLE `club_tokens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `club_tokens`
+--
+ALTER TABLE `club_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

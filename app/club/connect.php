@@ -1,7 +1,7 @@
 <?php
 //This Code is made by Imii and Gabor
-$database = "csoport";
-$mysqli = new mysqli("localhost", "tanulo", "tanulo", $database); 
+$database = "fosmenta";
+$mysqli = new mysqli("localhost", "root", "MelegRakGyaszKapn43l!", $database); 
 
 if (!$mysqli) {
     die('Nem lehet csatlakozni a MySQL-hez ' . $mysqli->connect_errno);

@@ -9,6 +9,7 @@ $result = $mysqli->query($sql);
 
 $data = [];
 
+
 while ($row = $result->fetch_assoc()) {
     $sor = [];
 

@@ -1,7 +1,10 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/Bluementa-dev/app/global/database_connection/global_connect.php');
+include('../global/database_connection/global_connect.php');
 
-$sql = "SELECT quiz_id, number_of_questions from quizzes where quiz_id = 122";
+// FIXME what is this, WHY
+$numberOfQuestions = $_GET["NUMBEROFQUESTIONS"];
+
+$sql = "SELECT quiz_id, number_of_questions from quizzes where quiz_id = " . $numberOfQuestions;
 
 
 if ($allResult = mysqli_query($mysqli, $sql)) {
@@ -9,6 +12,6 @@ if ($allResult = mysqli_query($mysqli, $sql)) {
   $rowcount = $result["number_of_questions"];
 }
 
+mysqli_close($mysqli);
 
-mysqli_close($mysqli); 
-?>
+echo json_encode($rowcount);

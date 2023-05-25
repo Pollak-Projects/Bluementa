@@ -68,7 +68,7 @@
             {
         url: "../backend_csapatnevek.php",
         type: 'POST',  // http method
-        data: { tableName: 'csapat' },  // data to submit
+        data: { tableName: 'clubs' },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function
@@ -96,7 +96,7 @@
             {
         url: "../csoport_kilepheto.php",
         type: 'POST',  // http method
-        data: { tableName: 'tagok' },  // data to submit
+        data: { tableName: 'members' },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function
@@ -116,5 +116,6 @@
     
     </script>
 
+    
 </body>
 </html>

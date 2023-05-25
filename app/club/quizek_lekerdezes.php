@@ -1,10 +1,15 @@
 <?php
-require_once("connect.php");
+
+// validating user
+include(dirname(__FILE__)."../../user/controllers/validate_session.php");
+if(!validate_session()) return http_response_code(401);
+
+require_once("global_connect.php");
 
 $csoportid = $_POST['csoportid'];
-$sql = "SELECT `csapatok_quizei`.`quiz_id`, `quiz`.`quiz_name`\n"
+$sql = "SELECT `clubs_quizzez`.`quiz_id`, `quiz`.`quiz_name`\n"
     . "FROM `quiz`\n"
-    . "INNER JOIN `csapatok_quizei` ON `csapatok_quizei`.`quiz_id` = `quiz`.`quiz_id` WHERE `csapatok_quizei`.`csapat_id` = ?";
+    . "INNER JOIN `clubs_quizzez` ON `clubs_quizzez`.`quiz_id` = `quiz`.`quiz_id` WHERE `clubs_quizzez`.`club_id` = ?";
 
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $csoportid);

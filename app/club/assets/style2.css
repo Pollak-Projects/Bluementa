@@ -1,0 +1,24 @@
+h1 {
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+input[type=submit] {
+  padding:5px 15px; 
+  background:rgb(44, 125, 231); 
+  border:0 none;
+  cursor:pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; 
+  text-align: center;
+}
+.button {
+  position: fixed; /* or absolute */
+  top: 16%;
+  left: 47%;
+}
+.asd {
+  position: fixed;
+  top: 10%;
+  left: 44%;
+}

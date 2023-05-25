@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Bluementa</title>
+  <link rel="stylesheet" href="quiz.css">
+  <style>
+    section {
+      background-color: #fff;
+      width: 50%;
+      padding: 50px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      border: 3px solid #ccc;
+      border-radius: 22px;
+      margin: 127px auto;
+      height: 153.12123123123313px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+  </style>
+  <link rel="stylesheet" href="../../global/assets/global_Bluementa.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="module" src="../../question/js/question.generate.js"></script>
+  <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div>
+      <a href="#">Asztal</a>
+      <a href="#">Feladattár</a>
+      <a href="#">Csoportok</a>
+      <a href="#">Katalógus</a>
+      <a href="#">Direktcím</a>
+      <a href="#">Árak</a>
+    </div>
+  </nav>
+  <div id="containerID">
+    <br>
+    <br>
+    <br>
+    <div id="containerQuizInfo">
+
+    </div>
+  </div>
+  <div id="markQuiz">
+    <div id="uploadQuiz">
+      <!-- TODO ellenorzes() megcsinalasa MOST SEMMIT NEM CSINAL
+                tovabb kene iranyitania egy oldalra ahol kiirjuk az eredmenyt
+      -->
+      <button onclick="ellenorzes()">Ellenorzes</button>
+    </div>
+  </div>
+  <script type="module">
+    // TODO replace with require or smth
+    import { generateQuestion } from "../../question/js/question.generate.js";
+
+    // HACK magic counter, needs better implementation
+    let questionCounter = 0;
+
+    // TODO replace with actual data when that's done
+    let USER_ID, QUIZ_ID, NUMBEROFQUESTIONS;
+    USER_ID = 2;
+    QUIZ_ID = 4;
+    NUMBEROFQUESTIONS = 2;
+
+    $(document).ready(function () {
+      for (let i = 0; i < NUMBEROFQUESTIONS; i++) {
+        getQuizInformation();
+        getNextQuestionAndPrint();
+      }
+    })
+
+    function getQuizInformation() {
+      $.ajax({
+        url: "http://localhost/bluementa/Bluementa/app/quiz/quiz.get_quizinfo.php",
+        data: {
+          "QUIZ_ID": QUIZ_ID,
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          // TODO finish this feature, cus it doenst work rn 
+          // HACK this is a terrible way of doing this, Too bad!
+          $("containerQuizInfo").append(`<h1>${data.quizName}</h1>`)
+          $("containerQuizInfo").append(`<h3>${data.quizDescription}</h3>`)
+        },
+        error: function (request, status, error) {
+          // FIXME this isnt good, the user shouldnt see the error messages. Too bad!
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      })
+    }
+
+    function getNumberOfQuestions() {
+      $.ajax({
+        url: "http://localhost/bluementa/Bluementa/app/quiz/backend.php",
+        data: {
+          "USER_ID": USER_ID,
+          "QUIZ_ID": QUIZ_ID,
+          "NUMBEROFQUESTIONS": NUMBEROFQUESTIONS,
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data, status, xhr) {
+          console.log(data);
+        },
+        error: function (request, status, error) {
+          // FIXME this isnt good, the user shouldnt see the error messages. Too bad!
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      })
+    }
+
+    function getNextQuestionAndPrint() {
+      $.ajax({
+        url: "http://localhost/bluementa/Bluementa/app/quiz/quiz.get_question.php",
+        data: {
+          "QUIZ_ID": QUIZ_ID,
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          console.log(data[questionCounter])
+
+          let containerNode = document.getElementById("containerID")
+          containerNode.appendChild(generateQuestion(data[questionCounter], questionCounter))
+
+          // HACK this will lead to bugs if its called unnecessarily
+          questionCounter += 1
+        },
+        error: function (request, status, error) {
+          // FIXME in here too!
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
