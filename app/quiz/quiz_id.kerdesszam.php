@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'].'/Bluementa-dev/app/global/database_connection/global_connect.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/Bluementa-dev/app/global/database_connection/global_connect.php');
 
 $sql = "SELECT quiz_id, number_of_questions from quizzes where quiz_id = 122";
 
@@ -10,5 +10,5 @@ if ($allResult = mysqli_query($mysqli, $sql)) {
 }
 
 
-mysqli_close($mysqli); 
+mysqli_close($mysqli);
 ?>

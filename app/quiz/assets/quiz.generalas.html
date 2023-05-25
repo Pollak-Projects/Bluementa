@@ -47,6 +47,9 @@
     <br>
     <br>
     <br>
+    <div id="containerQuizInfo">
+
+    </div>
   </div>
   <div id="markQuiz">
     <div id="uploadQuiz">
@@ -71,9 +74,33 @@
 
     $(document).ready(function () {
       for (let i = 0; i < NUMBEROFQUESTIONS; i++) {
+        getQuizInformation();
         getNextQuestionAndPrint();
       }
     })
+
+    function getQuizInformation() {
+      $.ajax({
+        url: "http://localhost/bluementa/Bluementa/app/quiz/quiz.get_quizinfo.php",
+        data: {
+          "QUIZ_ID": QUIZ_ID,
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+          // TODO finish this feature, cus it doenst work rn 
+          // HACK this is a terrible way of doing this, Too bad!
+          $("containerQuizInfo").append(`<h1>${data.quizName}</h1>`)
+          $("containerQuizInfo").append(`<h3>${data.quizDescription}</h3>`)
+        },
+        error: function (request, status, error) {
+          // FIXME this isnt good, the user shouldnt see the error messages. Too bad!
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      })
+    }
 
     function getNumberOfQuestions() {
       $.ajax({
