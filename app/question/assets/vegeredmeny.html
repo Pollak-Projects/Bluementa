@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eredmények</title>
+  <link rel="stylesheet" href="hope.css">
+</head>
+
+<body>
+
+  <section class="kozep">
+  <h1>Eredmény</h1>
+  <div id="elertpontszam"></div>
+  </section>
+  <script>
+    // Kiolvassuk az elertpontszam változót a localStorage-ból
+    var elertpontszam = localStorage.getItem('elertpontszam');
+
+    // Megjelenítjük az eredményt az oldalon
+    document.getElementById('elertpontszam').innerText = "Elért pontszám: " + elertpontszam;
+  </script>
+</body>
+
+</html>
