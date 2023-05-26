@@ -85,7 +85,7 @@ if ($stmt->num_rows() > 0) {
 
         session_start();
         $_SESSION['id'] =  $id;
-        header('Location: token.html');
+        header('Location: http://localhost/HG/Bluementa-BM-5-dev/app/user/assets/token.html');
         exit();
     } else {
         $stmt->close();
@@ -96,7 +96,7 @@ if ($stmt->num_rows() > 0) {
 
 
         echo 'Succesful register!';
-        header('Location: token.html');
+        header('Location: http://localhost/HG/Bluementa-BM-5-dev/app/user/assets/token.html');
         exit();
     }
 }
