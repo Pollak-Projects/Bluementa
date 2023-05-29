@@ -28,7 +28,7 @@
         $(document).ready(()=> {		
             $.ajax( 
             {
-            url: "quizek_lekerdezes.php",
+            url: "../club/quizek_lekerdezes.php",
             type: 'POST',  // http method
             
         data: { clubid: new URLSearchParams(document.location.search).get("clubid") },  // data to submit

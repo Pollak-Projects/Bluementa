@@ -21,6 +21,6 @@ $mysqli->close();
 if($sorok == 0) {
     echo "Ennek a csapatnak nincsenek quizei!";
 } else {
-    header("Location: http://localhost\HG\Bluementa-dev\app\club\quizek-kiir.php?clubid=".$csoportid);
+    header("Location: http://localhost\HG\Bluementa-BM-5-dev\app\club\quizek-kiir.php?clubid=".$csoportid);
 }
 ?>
