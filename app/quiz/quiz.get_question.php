@@ -46,6 +46,9 @@ function asd()
 
         $data[] = $sor;
     }
+
+    $mysqli->close();
+
     return json_encode($data);
 }
 

@@ -73,8 +73,8 @@
     NUMBEROFQUESTIONS = 2;
 
     $(document).ready(function () {
+      getQuizInformation();
       for (let i = 0; i < NUMBEROFQUESTIONS; i++) {
-        getQuizInformation();
         getNextQuestionAndPrint();
       }
     })
@@ -90,8 +90,9 @@
         success: function (data) {
           // TODO finish this feature, cus it doenst work rn 
           // HACK this is a terrible way of doing this, Too bad!
-          $("containerQuizInfo").append(`<h1>${data.quizName}</h1>`)
-          $("containerQuizInfo").append(`<h3>${data.quizDescription}</h3>`)
+          console.log(data.quiz_description)
+          $("containerQuizInfo").append(`<h1>${data.quiz_name}</h1>`)
+          $("containerQuizInfo").append(`<h3>${data.quiz_description}</h3>`)
         },
         error: function (request, status, error) {
           // FIXME this isnt good, the user shouldnt see the error messages. Too bad!
