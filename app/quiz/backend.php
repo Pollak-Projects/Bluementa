@@ -4,7 +4,11 @@ include('../global/database_connection/global_connect.php');
 // FIXME what is this, WHY
 $numberOfQuestions = $_GET["NUMBEROFQUESTIONS"];
 
+<<<<<<< Updated upstream
 // FIXME SQL INJECTION POSSIBLE Tooo bad!
+=======
+
+>>>>>>> Stashed changes
 $sql = "SELECT quiz_id, number_of_questions from quizzes where quiz_id = " . $numberOfQuestions;
 
 
