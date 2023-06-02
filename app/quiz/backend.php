@@ -15,3 +15,5 @@ if ($allResult = mysqli_query($mysqli, $sql)) {
 mysqli_close($mysqli);
 
 echo json_encode($rowcount);
+
+//test test test

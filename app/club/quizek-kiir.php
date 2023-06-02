@@ -10,7 +10,7 @@
     <title>Quizek</title>
 </head>
 <body>
-    <form method="post" action="/blue/quizneve.php">
+    <form method="post" action="quizneve.php">
     <div class="row">
     <div class="col-sm-2 mb-3 mb-sm-0">
         <div class="card">
@@ -28,10 +28,10 @@
         $(document).ready(()=> {		
             $.ajax( 
             {
-            url: "/blue/quizek_lekerdezes.php",
+            url: "../club/quizek_lekerdezes.php",
             type: 'POST',  // http method
             
-        data: { csoportid: new URLSearchParams(document.location.search).get("clubid") },  // data to submit
+        data: { clubid: new URLSearchParams(document.location.search).get("clubid") },  // data to submit
                 dataType: 'json', // type of response data
                 //timeout: 500,     // timeout milliseconds
                 success: function (data,status,xhr) {   // success callback function

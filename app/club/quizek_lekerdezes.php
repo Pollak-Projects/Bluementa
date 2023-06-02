@@ -6,10 +6,10 @@ if(!validate_session()) return http_response_code(401);
 
 require_once("global_connect.php");
 
-$csoportid = $_POST['csoportid'];
-$sql = "SELECT `clubs_quizzez`.`quiz_id`, `quiz`.`quiz_name`\n"
-    . "FROM `quiz`\n"
-    . "INNER JOIN `clubs_quizzez` ON `clubs_quizzez`.`quiz_id` = `quiz`.`quiz_id` WHERE `clubs_quizzez`.`club_id` = ?";
+$csoportid = $_POST['clubid'];
+$sql = "SELECT `quizzez_clubs_switch`.`quiz_id`, `quizzes`.`quiz_name`\n"
+    . "FROM `quizzes`\n"
+    . "INNER JOIN `quizzez_clubs_switch` ON `quizzez_clubs_switch`.`quiz_id` = `quizzes`.`quiz_id` WHERE `quizzez_clubs_switch`.`club_id` = (?)";
 
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $csoportid);

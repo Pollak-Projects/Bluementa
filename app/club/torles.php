@@ -8,7 +8,7 @@ require_once("global_connect.php");
     if(isset($_POST['submit'])){
     if(!empty($_POST['csoportdel'])) {
         $selected = $_POST['csoportdel'];
-        $sql = "DELETE FROM Clubs WHERE `club`.`group_id` = ?;";
+        $sql = "DELETE FROM Clubs WHERE `clubs`.`club_id` = ?;";
 
 
         $stmt = $mysqli->prepare($sql);
